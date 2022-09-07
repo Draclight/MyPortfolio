@@ -1,0 +1,41 @@
+﻿@inherits UmbracoViewPage<ContentModels.Home>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@using Umbraco.Cms.Core.Models
+@using Umbraco.Cms.Core.Services
+@inject ILocalizationService _localizationService
+@{
+    var pages = Model?.Children().Where(x => x.IsVisible()) ?? Enumerable.Empty<IPublishedContent>();
+    var languages = Model.Cultures.ToArray();
+    var currentCulture = UmbracoContext.PublishedRequest.Culture;
+}
+
+<nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-primary portfolio-navbar">
+    <div class="container">
+        <a class="navbar-brand logo" href="@Model.Url()">@(Model.SiteName)</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navbarNav"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item"><a class="nav-link active" href="@Model.Url()">@Model.Name</a></li>
+                @if (pages != null && pages.Any())
+                {
+                    @foreach (var item in pages)
+                    {
+                        <li class="nav-item"><a class="nav-link active" href="@item.Url()">@item.Name</a></li>
+                    }
+                }
+                <li class="nav-item">
+                    <div class="dropdown">
+                        <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img class="dropdown-flag" src="~/images/@(currentCulture).png" />
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            @foreach (var lang in languages)
+                            {
+                                <a class="dropdown-item" href="@(Model.Url(lang.Key))"><img class="dropdown-flag" src="~/images/@(lang.Key).png" /></a>
+                            }
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

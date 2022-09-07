@@ -1,0 +1,69 @@
+/*Global*/
+.bg-primary {
+    background: #9e0e40 !important;
+}
+
+.bg-secondary {
+    background: #0084da !important;
+}
+
+.bg-thirdly {
+    background: green !important;
+}
+
+.progress-bar {
+    background: none;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #9e0e40;
+    border-color: #9e0e40;
+}
+
+.btn-outline-primary {
+    color: #9e0e40;
+    background-color: #fff;
+    border-color: #9e0e40;
+}
+
+a {
+    color: #9e0e40;
+}
+
+.btn-primary,
+.portfolio-block.cv .group .organization,
+.special-skill-item .icon {
+    background-color: #9e0e40;
+    border-color: #9e0e40;
+    color: white;
+}
+
+.portfolio-block.cv .education.group .organization {
+    background-color: green !important;
+}
+
+.project-page div.separator {
+    width: 300px;
+    height: 5px;
+    background-color: #9e0e40;
+}
+
+/*Navigation*/
+.dropdown-flag {
+    height: 25px;
+}
+
+.dropdown-menu {
+    min-width: auto;
+    box-shadow: 0 4px 10px rgb(0 0 0 / 10%);
+}
+
+/*Footer*/
+.page-footer {
+    background-color: #9e0e40 !important;
+}
+
+    .page-footer, .page-footer a {
+        color: white;
+    }

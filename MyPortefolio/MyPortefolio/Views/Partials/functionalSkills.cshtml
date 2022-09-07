@@ -1,0 +1,20 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@{
+    string title = Model.Value<string>("functionalSkillsTitle");
+    var functionalSkills = Model.Value<IEnumerable<Umbraco.Cms.Web.Common.PublishedModels.SkillItem>>("functionalSkills");
+}
+<div class="skills portfolio-info-card">
+    <h2>@title</h2>
+    @if (functionalSkills != null && functionalSkills.Any())
+    {
+        foreach (var item in functionalSkills)
+        {
+            <h3>@item.Skill</h3>
+            <p>@Html.Raw(item.Value("skillDescription"))</p>
+            <div class="progress">
+                <div class="progress-bar bg-secondary" aria-valuenow="@(item.Rating)" aria-valuemin="0" aria-valuemax="100" style="width: @(item.Rating)%;"><span class="sr-only">@(item.Rating)%</span></div>
+            </div>
+        }
+    }
+</div>

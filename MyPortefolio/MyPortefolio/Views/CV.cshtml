@@ -1,0 +1,45 @@
+﻿@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.CV>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels
+@using Umbraco.Cms.Core.Models
+@{
+    Layout = "Master.cshtml";
+    var homePage = Model.AncestorOrSelf<ContentModels.Home>();
+    var media = Model.Value<Umbraco.Cms.Core.Models.MediaWithCrops>("pdfCV");
+}
+
+<main class="page cv-page">
+    @await Html.PartialAsync("avatarHeader", homePage, new ViewDataDictionary(ViewData) {{"fromCv", true}, {"media", media}})
+    <section>
+    </section>
+    <section class="portfolio-block cv">
+        <div class="container">
+            @await Html.PartialAsync("workHistory", Model)
+            @await Html.PartialAsync("educationHistory", Model)
+            <div class="group">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        @await Html.PartialAsync("contactInfo", Model)
+                    </div>
+                </div>
+            </div>
+            <div class="group">
+                <div class="row">
+                    <div class="col-md-6">
+                        @await Html.PartialAsync("skills", Model)
+                    </div>
+                    <div class="col-md-6">
+                        @Html.Partial("functionalSkills", Model)
+                    </div>
+                </div>
+            </div>
+            <div class="group">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        @await Html.PartialAsync("languages", Model)
+                    </div>
+                </div>
+            </div>
+            @await Html.PartialAsync("hobbies", Model)
+        </div>
+    </section>
+</main>

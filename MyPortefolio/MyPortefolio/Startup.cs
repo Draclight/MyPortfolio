@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.HttpOverrides;
+using System.Net;
+
 namespace MyPortefolio
 {
     public class Startup
@@ -29,6 +32,11 @@ namespace MyPortefolio
         /// </remarks>
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.KnownProxies.Add(IPAddress.Parse("54.37.191.229"));
+            });
+
             services.AddUmbraco(_env, _config)
                 .AddBackOffice()
                 .AddWebsite()
@@ -47,6 +55,10 @@ namespace MyPortefolio
             {
                 app.UseDeveloperExceptionPage();
             }
+            else if (!env.IsDevelopment())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseUmbraco()
                 .WithMiddleware(u =>
@@ -60,6 +72,13 @@ namespace MyPortefolio
                     u.UseBackOfficeEndpoints();
                     u.UseWebsiteEndpoints();
                 });
+
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+
+            app.UseAuthentication();
         }
     }
 }
